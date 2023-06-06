@@ -1,7 +1,7 @@
 'use client'
 
-import { ChakraProvider } from '@chakra-ui/react'
 import { SessionProvider } from 'next-auth/react'
+import { ChakraProvider } from '@chakra-ui/react'
 
 type Props = {
   children?: React.ReactNode
