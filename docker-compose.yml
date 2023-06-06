@@ -1,0 +1,28 @@
+version: "3.3"
+
+services:
+  training-db:
+    container_name: training-db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./prisma/db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  training-app:
+    container_name: training-app
+    build: 
+      context: .
+      dockerfile: app.dockerfile
+    restart: always
+    depends_on:
+      - training-db
+    ports:
+      - 5555:5555
+      - 3000:3000
+    volumes:
+      - ./:/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@training-db:5432/postgres
